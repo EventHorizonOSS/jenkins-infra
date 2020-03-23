@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkinsci/blueocean
+    depends_on:
+      - jenkins-docker
+      - jenkins-nginx
+    container_name: jenkins
+    environment:
+      DOCKER_HOST: "tcp://docker:2376"
+      DOCKER_CERT_PATH: "/certs/client"
+      DOCKER_TLS_VERIFY: "1"
+      VIRTUAL_HOST: "jenkins.lab.eventhorizon.com.br"
+      VIRTUAL_PORT: "8080"
+    domainname: lab.eventhorizon.com.br
+    hostname: jenkins
+    extra_hosts:
+      - "localhost:127.0.0.1"
+      - "localhost.lab.eventhorizon.com.br:127.0.0.1"
+      - "jenkins:127.0.0.1"
+      - "jenkins.lab.eventhorizon.com.br:127.0.0.1"
+    networks:
+      jenkins:
+        aliases:
+          - jenkins
+          - jenkins.lab.eventhorizon.com.br
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  jenkins-docker:
+    image: docker:dind
+    container_name: jenkins-docker
+    environment:
+      DOCKER_TLS_CERTDIR: "/certs"
+    domainname: lab.eventhorizon.com.br
+    hostname: jenkins-docker
+    privileged: true
+    extra_hosts:
+      - "localhost:127.0.0.1"
+      - "localhost.lab.eventhorizon.com.br:127.0.0.1"
+      - "jenkins-docker:127.0.0.1"
+      - "jenkins-docker.lab.eventhorizon.com.br:127.0.0.1"
+    networks:
+      jenkins:
+        aliases:
+          - jenkins-docker
+          - jenkins-docker.lab.eventhorizon.com.br
+    ports:
+      - '2376:2376'
+    volumes:
+      - jenkins-docker-certs:/certs/client
+
+  jenkins-nginx:
+    image: jwilder/nginx-proxy
+    container_name: jenkins-nginx
+    domainname: lab.eventhorizon.com.br
+    hostname: jenkins-nginx
+    privileged: true
+    extra_hosts:
+      - "localhost:127.0.0.1"
+      - "localhost.lab.eventhorizon.com.br:127.0.0.1"
+      - "jenkins-nginx:127.0.0.1"
+      - "jenkins-nginx.lab.eventhorizon.com.br:127.0.0.1"
+    networks:
+      jenkins:
+        aliases:
+          - jenkins-nginx
+          - jenkins-nginx.lab.eventhorizon.com.br
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+#      - /home/ubuntu:/etc/nginx/certs
+      - /home/guilherme/Downloads:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+volumes:
+  jenkins-docker-certs:
+  jenkins-data:
+
+networks:
+  jenkins:
+    driver: bridge

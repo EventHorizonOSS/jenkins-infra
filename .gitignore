@@ -1,3 +1,10 @@
+# Intellij
+.idea
+atlassian-ide-plugin.xml
+*.iml
+*.ipr
+*.iws
+
 # Local .terraform directories
 **/.terraform/*
 
