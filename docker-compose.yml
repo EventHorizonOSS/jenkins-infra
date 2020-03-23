@@ -76,8 +76,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-#      - /home/ubuntu:/etc/nginx/certs
-      - /home/guilherme/Downloads:/etc/nginx/certs
+      - /home/ubuntu:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
 volumes:
