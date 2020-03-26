@@ -15,6 +15,7 @@ services:
       VIRTUAL_PORT: "8080"
     domainname: lab.eventhorizon.com.br
     hostname: jenkins
+    privileged: true
     extra_hosts:
       - "localhost:127.0.0.1"
       - "localhost.lab.eventhorizon.com.br:127.0.0.1"
@@ -29,8 +30,10 @@ services:
       - '8080:8080'
       - '50000:50000'
     volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
+#      - jenkins-data:/var/jenkins_home
+#      - jenkins-docker-certs:/certs/client:ro
+      - ./jenkins/data:/var/jenkins_home
+      - ./jenkins/certs:/certs/client:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   jenkins-docker:
@@ -54,7 +57,8 @@ services:
     ports:
       - '2376:2376'
     volumes:
-      - jenkins-docker-certs:/certs/client
+#      - jenkins-docker-certs:/certs/client
+      - ./jenkins/certs:/certs/client
 
   jenkins-nginx:
     image: jwilder/nginx-proxy
@@ -79,9 +83,9 @@ services:
       - /home/ubuntu:/etc/nginx/certs
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-volumes:
-  jenkins-docker-certs:
-  jenkins-data:
+#volumes:
+#  jenkins-docker-certs:
+#  jenkins-data:
 
 networks:
   jenkins:

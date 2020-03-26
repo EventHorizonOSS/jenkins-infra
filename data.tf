@@ -15,3 +15,8 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
+
+data "aws_route53_zone" "jenkins_route53_zone" {
+  name         = "lab.eventhorizon.com.br."
+  private_zone = false
+}
