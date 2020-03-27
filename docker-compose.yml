@@ -11,7 +11,7 @@ services:
       DOCKER_HOST: "tcp://docker:2376"
       DOCKER_CERT_PATH: "/certs/client"
       DOCKER_TLS_VERIFY: "1"
-      VIRTUAL_HOST: "jenkins.lab.eventhorizon.com.br"
+      VIRTUAL_HOST: "jenkins2.lab.eventhorizon.com.br"
       VIRTUAL_PORT: "8080"
     domainname: lab.eventhorizon.com.br
     hostname: jenkins

@@ -7,14 +7,14 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "jenkins-lab-bucket"
-    key    = "terraform.tfstate"
+    key    = "terraform/terraform.tfstate"
     region = "sa-east-1"
   }
 }
 
 resource "aws_key_pair" "jenkins_lab_key" {
   key_name   = "jenkins2-lab-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDKuT3dzjw/7gUkVdep4j70tiZgVsaTwhGXf84+XmsYF00YjUm4nMd7TXeXDBnl2S6sh506GjmycuQh/Fz2ytzBots2PEFz1KZVDV+fjN+ihNdIg7iUglD4yycxsyqR7fkbHIFR8oVYjBPU419rGPsJ9kW4jqL26M5Q3BD6T7ry8OgBMk80cG353e/24GLezt5CY/aUl+erUObBY5Vj2PeUnuhchOwKV5AG0zMZeaCqZ187+kt8ZroflimOkTh0PDlOsNwGS43Lndzzv7MkQqjhWQVQvLYZKWbz5s5XYBolZ8qdbdR0QGmtZo60sK5HJxJaX4ViM8wUCG2IYbLaJd0dWQuekKjRE2ljKT4s6V9x0QO1wwBF57Q6AnU6qocB6BDT9ZICCIhtvkG5yuLk962hUpX+H2MD9xQA/DWOLB9Kpl+yTvM3xjnRjQ4phbFU0DhZPG+jSPxV/Vc0f+cQUseW9AuS2gpWnHuI3hAh5/01L3+dg7CvyHganSuDeWdux1GjwSU2OC/lQOKMs6O29z1vjzXZybxbOJrhwVQE/xJlaetbLWRGjiuwbO3JfhQGOIxRFAcTj+ZtVOEzIaiGN8/kUBsSI35yId9dsXuCTKy8Lw1oMw9doHiXCxXx4Pj2EJfVALeIwI00Aqo3mkahJ2nocD+1788a4H9NCn/ZSz9nLw== jenkins-lab-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhMX/ElhWJPlo40LQjqYbJ1aCsGFlg1XmXbvYNfsQayelyav3VIoyy0glIIQH/NXmQO6XzSq19w2xmNwWTj5kPbJoLiAkinZhkXBtVVjzfAPo0W91rhLJ225YZDLm4hDblGeEJtUpvrdbaTnNNcStCFAdpPMNAOkczDkkhE00XgiyGclC1eSaQWmOYwlaFnmHQAx0KTqLpv+BTfASu0WeS+9U9xk6NA5sUamLEvunuza7JN5PVlFlB8AwPziVGdIaw+oUh6eZIosq54PMsV8+ktNxjIb5oYpz8Ga3VOdxh3R/4CBmtPhFJBxEL1/NGXlyQplKYF8/5nXzmW1NC/pPXenhw33bxs902PPPki7U1yiNuNucOooNg5GcSpYxTBXovaaZhKCTM0jk2ZPWvWVytBlyISYT30cLTIgtYr7NcYfXUThonH0X3U3X+CZdXVReZicJIVKytnwCneBmZh8gpLattJwZLj06ZLTMzyYSVVIo7+CfgZ64hJMIWsM8/NXIzy5CJd/SujTHY9jbLxekgd0pdcr518EmbtMugEBduSuCVd6YIRvxPm3W+wbQDQ23czILhngyLCWSUaAUWLysqp11/ElS5SxPoeQv5H1SzAMvk+9wrPkcf3Ba2SNgW00+CVASXWGc5gbQHkXuSJHCuvLwEK3pxjeJPuHgN95UTnw== jankins2-lab-key"
 }
 
 resource "aws_instance" "jenkins_lab_instance" {
