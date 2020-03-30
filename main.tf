@@ -20,7 +20,7 @@ resource "aws_key_pair" "jenkins_lab_key" {
 resource "aws_instance" "jenkins_lab_instance" {
   ami                    = data.aws_ami.ubuntu.id
   availability_zone      = "sa-east-1a"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.small"
   key_name               = aws_key_pair.jenkins_lab_key.key_name
   vpc_security_group_ids = ["sg-0ac6efa178014afad"]
   subnet_id              = "subnet-019bfffc20f358108"
