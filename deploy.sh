@@ -39,7 +39,7 @@ then
       key="$1"
       case $key in
         --cert-dir)
-          OPT_CERT_DIR=$2
+          CMD_ARG_CERT_DIR=$2
           shift
           shift
           ;;
