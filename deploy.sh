@@ -2,9 +2,11 @@
 
 if [[  $__DEPLOY__ != true ]];
 then
-  CMD_NAME="deploy"
+  CMD_ARG_CERT_DIR=
 
   deploy_usage() {
+    local CMD_NAME="deploy"
+
     printf "\n"
 
     printf "NAME\n"
@@ -51,10 +53,18 @@ then
     done
   }
 
+  check_deploy_args() {
+    if [[ -z $CMD_ARG_CERT_DIR ]];
+    then
+      CMD_ARG_CERT_DIR=$(pwd)
+      printf "WARNING: Certificate directory was not set, will assume the current working directory: %s\n" "$CMD_ARG_CERT_DIR"
+    fi
+  }
+
   print_deploy_args() {
     printf "\n"
     printf "ARGUMENTS\n"
-    printf "%10s %-30s %s\n" "" "Certificate directory: " "$OPT_CERT_DIR"
+    printf "%10s %-30s %s\n" "" "Certificate directory: " "CMD_ARG_CERT_DIR"
     printf "\n"
   }
 
@@ -72,8 +82,8 @@ then
   }
 
   setup_jenkins_ssl() {
-    CERT_FILE="$OPT_CERT_DIR/fullchain.pem"
-    KEY_FILE="$OPT_CERT_DIR/privkey.pem"
+    CERT_FILE="CMD_ARG_CERT_DIR/fullchain.pem"
+    KEY_FILE="CMD_ARG_CERT_DIR/privkey.pem"
     printf "INFO: Creating certificate destination folder on Jenkins instance ... "
     if ssh -o "StrictHostKeyChecking no" -i ~/Google\ Drive/Workspace/AWS/ec2-keys/jenkins2-lab-sa-east-1.key ubuntu@"$JENKINS_ADDRESS" "sudo mkdir -p /jenkins/certs && sudo chown -R ubuntu:ubuntu /jenkins" > /dev/null 2>&1
     then

@@ -80,7 +80,6 @@ print_options() {
   printf "OPTIONS\n"
   printf "%10s %-30s %s\n" "" "Jenkins address: " "$JENKINS_ADDRESS"
   printf "%10s %-30s %s\n" "" "Region: " "$OPT_REGION"
-  printf "%10s %-30s %s\n" "" "Certificate directory: " "$OPT_CERT_DIR"
   printf "%10s %-30s %s\n" "" "Dry run: " "$OPT_DRY_RUN"
   printf "\n"
 }
@@ -90,11 +89,6 @@ check_options() {
   then
     printf "WARNING: Region was not specified, will use the default region: %s\n" "$DEFAULT_REGION"
     OPT_REGION=$DEFAULT_REGION
-  fi
-  if [[ -z $OPT_CERT_DIR ]];
-  then
-    printf "WARNING: Certificate directory was not set, will assume the current working directory: %s\n" "$(pwd)"
-    OPT_CERT_DIR=$(pwd)
   fi
 }
 
